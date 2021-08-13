@@ -1,0 +1,16 @@
+.myBtn {
+  padding: 7px 25px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: .2s;
+  background-color: #7a4a66;
+  color: white;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+.myBtn:hover {
+  background-color: #643f52;
+}
