@@ -1,50 +1,58 @@
-import React, {useMemo, useState} from 'react'
-import Counter from './components/Counter'
-import ClassCounter from './components/ClassCounter'
-import './App.css'
-import PostItem from './components/PostItem'
+import React, {useEffect, useMemo, useState} from 'react'
+import './styles/App.css'
 import PostList from './components/PostList'
-import MyButton from './components/UI/MyButton'
-import MyInput from './components/UI/MyInput'
+import MyButton from './components/UI/MyButton/MyButton'
+import MyInput from './components/UI/MyInput/MyInput'
 import PostForm from './components/PostForm'
 import MySelect from './components/UI/MySelect'
 import PostFilter from './components/PostFilter'
+import MyModal from './components/UI/MyModal/MyModal'
+import {usePosts} from './hooks/usePosts'
+import PostService from './API/PostService'
 
 
 function App() {
 
-  const [posts, setPosts] = useState([
-    {id: 1, title: 'JS', description: 'JS is amasing'},
-    {id: 2, title: 'Python', description: 'JS is cool'},
-    {id: 3, title: 'Java', description: 'JS is not bad'},
-    {id: 4, title: 'C++', description: 'JS is wonderful'},
-  ])
+  const [posts, setPosts] = useState([])
   const [filter, setFilter] = useState({sort: '', query: ''})
+  const [modal, setModal] = useState(false)
+  const [isPostsLoad, setIsPostsLoad] = useState(false)
 
-  const sortedPosts = useMemo(() => {
-    if(filter.sort) return [...posts].sort( (a,b) => a[filter.sort].localeCompare(b[filter.sort]))
-    return posts
-  }, [posts, filter.sort])
+  useEffect(() => {
+    fetchPosts()
+  }, [])
 
-  const sortedAndSearchedPosts = useMemo(() => {
-    return sortedPosts.filter(p => p.title.toLowerCase().includes(filter.query))
-  }, [filter.query, sortedPosts])
+  const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
+    setModal(false)
+  }
+
+  async function fetchPosts() {
+    setIsPostsLoad(true)
+    setTimeout(async () => {
+      const posts = await PostService.getAll()
+      setPosts(posts)
+      setIsPostsLoad(false)
+    }, 1000)
   }
 
   const removePost = (post) => {
     setPosts(posts.filter(p => p.id !== post.id))
-    console.log(post)
   }
 
   return (
     <div className="App">
-      <PostForm createPost={createPost}/>
-      <hr style={{margin: '20px'}}/>
+      <MyButton onClick={() => setModal(true)}>Add user</MyButton>
+      <MyModal visible={modal} setVisible={setModal}><PostForm createPost={createPost}/></MyModal>
+      <hr style={{margin: '20px 0'}}/>
       <PostFilter filter={filter} setFilter={setFilter}/>
-      <PostList removePost={removePost} posts={sortedAndSearchedPosts} title='List of posts 1' />
+      <hr style={{margin: '20px 0'}}/>
+      {isPostsLoad
+        ? <h1>Is downloading...</h1>
+        : <PostList removePost={removePost} posts={sortedAndSearchedPosts} title='List of posts 1' />
+      }
     </div>
 
   )

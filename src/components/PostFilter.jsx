@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react'
-import MyInput from './UI/MyInput'
+import MyInput from './UI/MyInput/MyInput'
 import MySelect from './UI/MySelect'
 
 const PostFilter = ({filter, setFilter}) => {
@@ -17,7 +17,7 @@ const PostFilter = ({filter, setFilter}) => {
         defaultValue='sort by'
         options={[
           {value: 'title', name: 'title'},
-          {value: 'description', name: 'description'},
+          {value: 'body', name: 'description'},
         ]}
       />
     </div>
