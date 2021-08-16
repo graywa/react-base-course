@@ -7,9 +7,7 @@
   transition: .2s;
   background-color: #7a4a66;
   color: white;
-  position: relative;
-  left: 50%;
-  transform: translate(-50%, 0);
+  margin: 15px 5px;
 }
 .myBtn:hover {
   background-color: #643f52;
