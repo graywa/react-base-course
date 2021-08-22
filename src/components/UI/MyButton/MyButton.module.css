@@ -5,10 +5,10 @@
   cursor: pointer;
   font-size: 16px;
   transition: .2s;
-  background-color: #7a4a66;
-  color: white;
+  background-color: #f6f4f4;
+  color: #7a4a66;
   margin: 15px 5px;
 }
 .myBtn:hover {
-  background-color: #643f52;
+  background-color: #f1eeee;
 }

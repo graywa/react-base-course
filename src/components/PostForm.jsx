@@ -25,7 +25,7 @@ const PostForm = ({createPost}) => {
     <form>
       <MyInput value={post.title} onChange={addTitle} type="text" placeholder='Title of post'/>
       <MyInput value={post.body} onChange={addDescription} type="text" placeholder='Description of post'/>
-      <MyButton onClick={addNewPost}>Create Post</MyButton>
+      <MyButton onClick={addNewPost}>Create post</MyButton>
     </form>
   )
 }

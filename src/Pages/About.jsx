@@ -2,8 +2,8 @@ import React from 'react'
 
 const About = () => {
   return (
-    <div>
-      This app was building by Graywa
+    <div className='App'>
+      This app was developed by Graywa
     </div>
   )
 }
